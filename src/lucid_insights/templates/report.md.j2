@@ -1,0 +1,65 @@
+# Accessibility Remediation Report
+
+{% if report.is_diff %}
+> **Diff mode:** only new or changed violations since `{{ report.previous_report_path }}`.
+{% endif %}
+
+**URL:** {{ summary.url }}
+{% if summary.timestamp %}
+**Audited:** {{ summary.timestamp.isoformat() }}
+{% endif %}
+
+## Summary
+
+| Severity | Count |
+| --- | ---: |
+{% for impact, count in summary.by_impact.items() %}
+| {{ impact }} | {{ count }} |
+{% endfor %}
+| **Total violations** | **{{ summary.total_violations }}** |
+| **Unique rules** | **{{ summary.total_groups }}** |
+
+{% for impact, groups in impact_sections %}
+## {{ impact.value | capitalize }}
+
+{% for group in groups %}
+### `{{ group.rule_id }}` ({{ group.count }} occurrence{% if group.count != 1 %}s{% endif %})
+
+**Impact:** {{ group.impact.value }}
+{% if group.wcag_criteria %}
+**WCAG:** {{ group.wcag_criteria | join(", ") }}
+{% endif %}
+{% if group.help_url %}
+**Reference:** {{ group.help_url }}
+{% endif %}
+
+**Affected selectors:**
+{% for selector in group.selectors %}
+- `{{ selector }}`
+{% endfor %}
+
+{% if group.insight %}
+#### What's wrong
+
+{{ group.insight.explanation }}
+
+#### Why it matters
+
+{{ group.insight.why_it_matters }}
+
+#### How to fix it
+
+{{ group.insight.fix_suggestion }}
+{% else %}
+_No remediation insight generated._
+{% endif %}
+
+---
+
+{% endfor %}
+{% endfor %}
+{% if not impact_sections %}
+_No violations to report._
+{% endif %}
+
+{{ fingerprint_block }}

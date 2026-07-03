@@ -1,0 +1,87 @@
+{
+  "url": "https://example.com/checkout",
+  "timestamp": "2026-07-03T14:30:00Z",
+  "violations": [
+    {
+      "id": "image-alt",
+      "impact": "critical",
+      "wcag_criteria": ["1.1.1"],
+      "selector": "img.hero-banner",
+      "html_snippet": "<img class=\"hero-banner\" src=\"/hero.jpg\">",
+      "description": "Images must have alternate text",
+      "help_url": "https://dequeuniversity.com/rules/axe/4.9/image-alt"
+    },
+    {
+      "id": "image-alt",
+      "impact": "critical",
+      "wcag_criteria": ["1.1.1"],
+      "selector": "img.product-thumb",
+      "html_snippet": "<img class=\"product-thumb\" src=\"/thumb.png\">",
+      "description": "Images must have alternate text",
+      "help_url": "https://dequeuniversity.com/rules/axe/4.9/image-alt"
+    },
+    {
+      "id": "image-alt",
+      "impact": "critical",
+      "wcag_criteria": ["1.1.1"],
+      "selector": "img.logo",
+      "html_snippet": "<img class=\"logo\" src=\"/logo.svg\">",
+      "description": "Images must have alternate text",
+      "help_url": "https://dequeuniversity.com/rules/axe/4.9/image-alt"
+    },
+    {
+      "id": "button-name",
+      "impact": "critical",
+      "wcag_criteria": ["4.1.2"],
+      "selector": "button.icon-only.close",
+      "html_snippet": "<button class=\"icon-only close\"></button>",
+      "description": "Buttons must have discernible text",
+      "help_url": "https://dequeuniversity.com/rules/axe/4.9/button-name"
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "wcag_criteria": ["1.4.3"],
+      "selector": ".muted-label",
+      "html_snippet": "<span class=\"muted-label\">Optional</span>",
+      "description": "Elements must have sufficient color contrast",
+      "help_url": "https://dequeuniversity.com/rules/axe/4.9/color-contrast"
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "wcag_criteria": ["1.4.3"],
+      "selector": "a.footer-link",
+      "html_snippet": "<a class=\"footer-link\" href=\"/privacy\">Privacy</a>",
+      "description": "Elements must have sufficient color contrast",
+      "help_url": "https://dequeuniversity.com/rules/axe/4.9/color-contrast"
+    },
+    {
+      "id": "label",
+      "impact": "moderate",
+      "wcag_criteria": ["1.3.1", "4.1.2"],
+      "selector": "input#promo-code",
+      "html_snippet": "<input id=\"promo-code\" type=\"text\">",
+      "description": "Form elements must have labels",
+      "help_url": "https://dequeuniversity.com/rules/axe/4.9/label"
+    },
+    {
+      "id": "landmark-one-main",
+      "impact": "moderate",
+      "wcag_criteria": ["1.3.1", "2.4.1"],
+      "selector": "html",
+      "html_snippet": "<html lang=\"en\">",
+      "description": "Document should have one main landmark",
+      "help_url": "https://dequeuniversity.com/rules/axe/4.9/landmark-one-main"
+    },
+    {
+      "id": "region",
+      "impact": "minor",
+      "wcag_criteria": ["1.3.1"],
+      "selector": "div.promo-banner",
+      "html_snippet": "<div class=\"promo-banner\">Sale ends tonight</div>",
+      "description": "All page content should be contained by landmarks",
+      "help_url": "https://dequeuniversity.com/rules/axe/4.9/region"
+    }
+  ]
+}

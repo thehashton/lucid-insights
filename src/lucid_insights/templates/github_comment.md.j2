@@ -1,0 +1,58 @@
+## Accessibility remediation
+
+{% if report.is_diff %}
+> Diff vs `{{ report.previous_report_path }}` — new/changed issues only.
+{% endif %}
+
+**{{ summary.url }}** · {{ summary.total_violations }} violation(s) across {{ summary.total_groups }} rule(s)
+
+| Severity | Count |
+| --- | ---: |
+{% for impact, count in summary.by_impact.items() %}
+| {{ impact }} | {{ count }} |
+{% endfor %}
+
+{% for impact, groups in impact_sections %}
+{% set is_collapsed = impact.value in ["moderate", "minor"] %}
+{% if is_collapsed %}
+<details>
+<summary><strong>{{ impact.value | capitalize }}</strong> ({{ groups | length }} rule{% if groups | length != 1 %}s{% endif %})</summary>
+
+{% for group in groups %}
+#### `{{ group.rule_id }}` · {{ group.count }}×
+
+{% if group.insight %}
+{{ group.insight.explanation }}
+
+**Fix:** {{ group.insight.fix_suggestion }}
+{% endif %}
+
+Selectors: {% for selector in group.selectors %}`{{ selector }}`{% if not loop.last %}, {% endif %}{% endfor %}
+
+{% endfor %}
+</details>
+
+{% else %}
+### {{ impact.value | capitalize }}
+
+{% for group in groups %}
+#### `{{ group.rule_id }}` ({{ group.count }}×)
+
+{% if group.wcag_criteria %}WCAG {{ group.wcag_criteria | join(", ") }} · {% endif %}{% for selector in group.selectors %}`{{ selector }}`{% if not loop.last %}, {% endif %}{% endfor %}
+
+{% if group.insight %}
+**Issue:** {{ group.insight.explanation }}
+
+**Why it matters:** {{ group.insight.why_it_matters }}
+
+**Fix:** {{ group.insight.fix_suggestion }}
+{% endif %}
+
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% if not impact_sections %}
+No violations to report.
+{% endif %}
+
+{{ fingerprint_block }}

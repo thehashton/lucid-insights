@@ -1,0 +1,30 @@
+*Accessibility remediation summary*
+{% if report.is_diff %}
+_Diff vs `{{ report.previous_report_path }}`_
+{% endif %}
+
+*URL:* {{ summary.url }}
+*Violations:* {{ summary.total_violations }} across {{ summary.total_groups }} rules
+{% for impact, count in summary.by_impact.items() %}
+• *{{ impact }}:* {{ count }}
+{% endfor %}
+
+*Top issues*
+{% set ns = namespace(shown=0) %}
+{% for impact, groups in impact_sections %}
+{% for group in groups %}
+{% if ns.shown < 5 %}
+{{ ns.shown + 1 }}. `{{ group.rule_id }}` ({{ group.impact.value }}, {{ group.count }}×){% if group.insight %} — {{ group.insight.explanation | truncate(140) }}{% endif %}
+{% set ns.shown = ns.shown + 1 %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% if ns.shown == 0 %}
+_No violations to report._
+{% endif %}
+
+{% if report.full_report_path %}
+Full report: `{{ report.full_report_path }}`
+{% else %}
+_Generate a full markdown report with `--format markdown --output report.md` for details._
+{% endif %}

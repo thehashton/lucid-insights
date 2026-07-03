@@ -1,0 +1,50 @@
+[project]
+name = "lucid-insights"
+version = "0.1.0"
+description = "Generate human-readable accessibility remediation reports from Lucid audit JSON using Claude"
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "thehashton", email = "harry.ashton.uk@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.116.0",
+    "jinja2>=3.1.6",
+    "pydantic>=2.13.4",
+    "typer>=0.26.8",
+]
+
+[project.urls]
+Homepage = "https://github.com/thehashton/lucid-insights"
+Repository = "https://github.com/thehashton/lucid-insights"
+
+[project.scripts]
+lucid-insights = "lucid_insights:main"
+
+[build-system]
+requires = ["uv_build>=0.11.26,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-mock>=3.15.1",
+    "ruff>=0.15.20",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+# Typer requires Option()/Argument() in function signatures.
+"src/lucid_insights/cli.py" = ["B008"]
